@@ -1,7 +1,8 @@
 #include <gmp.h>
 #include "arithmetics.h"
 
-void mdc_estendido(mpz_t g, mpz_t x, mpz_t y, const mpz_t a, const mpz_t b)
+void gcd_extended(mpz_t g, mpz_t x, mpz_t y,
+                   const mpz_t a, const mpz_t b)
 {
     // Init values
     mpz_t r;
@@ -17,7 +18,7 @@ void mdc_estendido(mpz_t g, mpz_t x, mpz_t y, const mpz_t a, const mpz_t b)
     // r == 0 => g = b
     //        => a*x + b*y = b
     //        => x = 0, y = 1
-    if (!mpz_cmp_ui(r, 0))
+    if (mpz_cmp_ui(r, 0) == 0)
     {
         mpz_set_ui(x, 0);
         mpz_set_ui(y, 1);
@@ -25,7 +26,7 @@ void mdc_estendido(mpz_t g, mpz_t x, mpz_t y, const mpz_t a, const mpz_t b)
     }
 
     // b*x' + r*y' == gcf(b, r) == gcf(a, b)
-    mdc_estendido(g, x, y, b, r);
+    gcd_extended(g, x, y, b, r);
 
     // b*x' + r*y' == b*x' + (a - b*q)*y'
     //             == b*x' + a*y' - b*q*y'
@@ -45,4 +46,31 @@ end:
     mpz_clear(r);
     mpz_clear(q);
     mpz_clear(aux);
+}
+
+int modular_inverse(mpz_t r,
+                    const mpz_t a,
+                    const mpz_t n)
+{
+
+    mpz_t g;
+    mpz_init(g);
+    mpz_t x;
+    mpz_init(x);
+    mpz_t a_mod_n;
+    mpz_init(a_mod_n);
+    int has_inverse = 0;
+
+    mpz_mod(a_mod_n, a, n); // Avoids a greater than n
+
+    gcd_extended(g, x, r, n, a_mod_n);
+
+    if (mpz_cmp_ui(g, 1) == 0) {
+        has_inverse = 1;
+    }
+
+    mpz_clear(g);
+    mpz_clear(x);
+    mpz_clear(a_mod_n);
+    return has_inverse;
 }

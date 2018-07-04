@@ -3,30 +3,24 @@
 
 int main()
 {
-    mpz_t g;
-    mpz_init(g);
-    mpz_t x;
-    mpz_init(x);
-    mpz_t y;
-    mpz_init(y);
     mpz_t a;
-    mpz_init_set_ui(a, 15);
-    mpz_t b;
-    mpz_init_set_ui(b, 10);
+    mpz_init_set_ui(a, 3);
+    mpz_t n;
+    mpz_init_set_ui(n, 32);
+    mpz_t r;
+    mpz_init(r);
 
-    mdc_estendido(g, x, y, a, b);
+    if (modular_inverse(r, a, n)) {
+        printf("Has inverse!\n");
+    }
 
-    gmp_printf("%Zd\n", g);
-    gmp_printf("%Zd\n", x);
-    gmp_printf("%Zd\n", y);
     gmp_printf("%Zd\n", a);
-    gmp_printf("%Zd\n", b);
+    gmp_printf("%Zd\n", n);
+    gmp_printf("%Zd\n", r);
 
-    mpz_clear(g);
-    mpz_clear(x);
-    mpz_clear(y);
     mpz_clear(a);
-    mpz_clear(b);
+    mpz_clear(n);
+    mpz_clear(r);
 
     return 0;
 }

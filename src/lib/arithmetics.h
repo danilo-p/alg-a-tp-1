@@ -3,6 +3,11 @@
 #ifndef ARITHMETICS_H
 #define ARITHMETICS_H
 
-void mdc_estendido(mpz_t g, mpz_t x, mpz_t y, const mpz_t a, const mpz_t b);
+void gcd_extended(mpz_t g, mpz_t x, mpz_t y,
+                   const mpz_t a, const mpz_t b);
+
+int modular_inverse(mpz_t r,
+                    const mpz_t a,
+                    const mpz_t n);
 
 #endif
