@@ -4,23 +4,16 @@
 
 int main()
 {
-    mpz_t a;
-    mpz_init_set_ui(a, 2);
+    gmp_randstate_t rand_state;
+    gmp_randinit_default(rand_state);
+    gmp_randseed_ui(rand_state, 12394781);
+
     mpz_t n;
-    mpz_init_set_ui(n, 561);
-    mpz_t n1;
-    mpz_init_set_ui(n1, 560);
-    unsigned int t;
-    t = 4;
-    mpz_t q;
-    mpz_init_set_ui(q, 35);
+    mpz_init_set_ui(n, 25);
 
-    printf("\n\n\n%d\n", maybe_prime(a, n, n1, t, q));
+    printf("%d\n", probably_prime(n, 4, rand_state));
 
-    mpz_clear(a);
     mpz_clear(n);
-    mpz_clear(n1);
-    mpz_clear(q);
 
     return 0;
 }
