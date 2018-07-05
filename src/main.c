@@ -3,24 +3,23 @@
 
 int main()
 {
-    mpz_t a;
-    mpz_init_set_ui(a, 3);
-    mpz_t n;
-    mpz_init_set_ui(n, 32);
     mpz_t r;
     mpz_init(r);
+    mpz_t b;
+    mpz_init_set_ui(b, 2);
+    mpz_t e;
+    mpz_init_set_ui(e, 6);
+    mpz_t n;
+    mpz_init_set_ui(n, 10);
 
-    if (modular_inverse(r, a, n)) {
-        printf("Has inverse!\n");
-    }
+    binary_exp(r, b, e, n);
 
-    gmp_printf("%Zd\n", a);
-    gmp_printf("%Zd\n", n);
     gmp_printf("%Zd\n", r);
 
-    mpz_clear(a);
-    mpz_clear(n);
     mpz_clear(r);
+    mpz_clear(b);
+    mpz_clear(e);
+    mpz_clear(n);
 
     return 0;
 }

@@ -2,7 +2,7 @@
 #include "arithmetics.h"
 
 void gcd_extended(mpz_t g, mpz_t x, mpz_t y,
-                   const mpz_t a, const mpz_t b)
+                  const mpz_t a, const mpz_t b)
 {
     // Init values
     mpz_t r;
@@ -65,7 +65,8 @@ int modular_inverse(mpz_t r,
 
     gcd_extended(g, x, r, n, a_mod_n);
 
-    if (mpz_cmp_ui(g, 1) == 0) {
+    if (mpz_cmp_ui(g, 1) == 0)
+    {
         has_inverse = 1;
     }
 
@@ -73,4 +74,29 @@ int modular_inverse(mpz_t r,
     mpz_clear(x);
     mpz_clear(a_mod_n);
     return has_inverse;
+}
+
+void binary_exp(mpz_t r,
+                const mpz_t b,
+                const mpz_t e,
+                const mpz_t n)
+{
+    mpz_t aux;
+    mpz_init_set_ui(aux, 1);
+
+    mpz_set(r, b);
+    while (mpz_cmp(aux, e) < 0)
+    {
+        mpz_mul(r, r, r);
+        mpz_mul_ui(aux, aux, 2);
+    }
+
+    mpz_mod_ui(aux, e, 2);
+    if (mpz_cmp_ui(aux, 0) != 0) {
+        mpz_div(r, r, r);
+        mpz_mul(r, r, b);
+    }
+
+    mpz_mod(r, r, n);
+    mpz_clear(aux);
 }
