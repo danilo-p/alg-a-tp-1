@@ -13,6 +13,12 @@ int maybe_prime(const mpz_t a,
     unsigned int i;
     int inconclusive = 0;
 
+    mpz_mod(r, a, n);
+    if (mpz_cmp_ui(r, 0) == 0) {
+        inconclusive = 1;
+        goto end;
+    }
+
     binary_exp(r, a, q, n);
     if (mpz_cmp_ui(r, 1) == 0)
     {
