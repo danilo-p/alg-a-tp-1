@@ -81,22 +81,28 @@ void binary_exp(mpz_t r,
                 const mpz_t e,
                 const mpz_t n)
 {
-    mpz_t aux;
-    mpz_init_set_ui(aux, 1);
+    mpz_t i;
+    mpz_init_set(i, e);
 
-    mpz_set(r, b);
-    while (mpz_cmp(aux, e) < 0)
+    mpz_t x;
+    mpz_init(x);
+    mpz_mod(x, b, n);
+
+    mpz_set_ui(r, 1);
+
+    while (mpz_cmp_ui(i, 0) > 0)
     {
-        mpz_mul(r, r, r);
-        mpz_mul_ui(aux, aux, 2);
+        if (mpz_odd_p(i))
+        {
+            mpz_mul(r, r, x);
+            mpz_mod(r, r, n);
+        }
+
+        mpz_div_ui(i, i, 2);
+        mpz_mul(x, x, x);
+        mpz_mod(x, x, n);
     }
 
-    mpz_mod_ui(aux, e, 2);
-    if (mpz_cmp_ui(aux, 0) != 0) {
-        mpz_div(r, r, r);
-        mpz_mul(r, r, b);
-    }
-
-    mpz_mod(r, r, n);
-    mpz_clear(aux);
+    mpz_clear(i);
+    mpz_clear(x);
 }

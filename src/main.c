@@ -1,25 +1,26 @@
 #include <stdio.h>
 #include "lib/arithmetics.h"
+#include "lib/primality.h"
 
 int main()
 {
-    mpz_t r;
-    mpz_init(r);
-    mpz_t b;
-    mpz_init_set_ui(b, 2);
-    mpz_t e;
-    mpz_init_set_ui(e, 6);
+    mpz_t a;
+    mpz_init_set_ui(a, 2);
     mpz_t n;
-    mpz_init_set_ui(n, 10);
+    mpz_init_set_ui(n, 561);
+    mpz_t n1;
+    mpz_init_set_ui(n1, 560);
+    unsigned int t;
+    t = 4;
+    mpz_t q;
+    mpz_init_set_ui(q, 35);
 
-    binary_exp(r, b, e, n);
+    printf("\n\n\n%d\n", maybe_prime(a, n, n1, t, q));
 
-    gmp_printf("%Zd\n", r);
-
-    mpz_clear(r);
-    mpz_clear(b);
-    mpz_clear(e);
+    mpz_clear(a);
     mpz_clear(n);
+    mpz_clear(n1);
+    mpz_clear(q);
 
     return 0;
 }
