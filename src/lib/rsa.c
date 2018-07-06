@@ -94,3 +94,19 @@ char *decode(const mpz_t n)
 
     return str;
 }
+
+void encrypt(mpz_t C,
+             const mpz_t M,
+             const mpz_t n,
+             const mpz_t e)
+{
+    binary_exp(C, M, e, n);
+}
+
+void decrypt(mpz_t M,
+             const mpz_t C,
+             const mpz_t n,
+             const mpz_t d)
+{
+    binary_exp(M, C, d, n);
+}
