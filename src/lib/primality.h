@@ -9,10 +9,16 @@ int maybe_prime(const mpz_t a,
                 unsigned int t,
                 const mpz_t q);
 
-void random_mod_n(mpz_t r, const mpz_t n, gmp_randstate_t rand_state);
-
 int probably_prime(const mpz_t n,
                    unsigned int iter,
-                   gmp_randstate_t rand_state);
+                   gmp_randstate_t randstate);
+
+void random_number(mpz_t r,
+                   const mpz_t n,
+                   gmp_randstate_t randstate);
+
+void random_prime(mpz_t r,
+                  unsigned int b,
+                  gmp_randstate_t randstate);
 
 #endif

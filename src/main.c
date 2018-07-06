@@ -4,16 +4,18 @@
 
 int main()
 {
-    gmp_randstate_t rand_state;
-    gmp_randinit_default(rand_state);
-    gmp_randseed_ui(rand_state, 12394781);
+    gmp_randstate_t randstate;
+    gmp_randinit_default(randstate);
+    // gmp_randseed_ui(randstate, 1234567890);
 
-    mpz_t n;
-    mpz_init_set_ui(n, 25);
+    mpz_t r;
+    mpz_init(r);
 
-    printf("%d\n", probably_prime(n, 4, rand_state));
+    random_prime(r, 100, randstate);
+    gmp_printf("%Zd %d\n", r, mpz_probab_prime_p(r, 10));
 
-    mpz_clear(n);
+    mpz_clear(r);
+    gmp_randclear(randstate);
 
     return 0;
 }
