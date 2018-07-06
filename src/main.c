@@ -5,27 +5,11 @@
 
 int main()
 {
-    gmp_randstate_t randstate;
-    gmp_randinit_default(randstate);
-    gmp_randseed_ui(randstate, 134143134);
-
-    mpz_t n;
-    mpz_init(n);
-
-    mpz_t e;
-    mpz_init(e);
-
-    mpz_t d;
-    mpz_init(d);
-
-    key_gen(n, e, d, randstate);
-
-    gmp_printf("%Zd %Zd %Zd\n", n, e, d);
-
-    mpz_clear(n);
-    mpz_clear(e);
-    mpz_clear(d);
-    gmp_randclear(randstate);
-
+    mpz_t r;
+    mpz_init(r);
+    char str[] = "Danilo";
+    encode(r, str);
+    gmp_printf("%Zd\n", r);
+    mpz_clear(r);
     return 0;
 }

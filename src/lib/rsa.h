@@ -8,4 +8,6 @@ void key_gen(mpz_t n,
              mpz_t d,
              gmp_randstate_t rnd);
 
+void encode(mpz_t r, const char *str);
+
 #endif

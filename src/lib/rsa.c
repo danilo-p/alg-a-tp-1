@@ -40,3 +40,28 @@ void key_gen(mpz_t n,
     mpz_clear(q1);
     mpz_clear(fi_n);
 }
+
+void encode(mpz_t r, const char *str)
+{
+    mpz_t b;
+    mpz_init(b);
+    mpz_t aux;
+    mpz_init(aux);
+
+    char c;
+    int c_ascii;
+    int i = 0;
+    mpz_set_ui(b, 1);
+    mpz_set_ui(r, 0);
+    while (str[i] != '\0')
+    {
+        c = str[i];
+        c_ascii = (int)c;
+        mpz_mul_ui(aux, b, c_ascii);
+        mpz_add(r, r, aux);
+        mpz_mul_ui(b, b, 256);
+        i += 1;
+    }
+    mpz_clear(b);
+    mpz_clear(aux);
+}
