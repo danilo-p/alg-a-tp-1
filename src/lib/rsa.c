@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <gmp.h>
 #include "rsa.h"
 #include "primality.h"
@@ -62,6 +63,34 @@ void encode(mpz_t r, const char *str)
         mpz_mul_ui(b, b, 256);
         i += 1;
     }
+
     mpz_clear(b);
     mpz_clear(aux);
+}
+
+char *decode(const mpz_t n)
+{
+    char *str = (char *)malloc(sizeof(500 * sizeof(char)));
+
+    mpz_t x;
+    mpz_init_set(x, n);
+    mpz_t c_ascii;
+    mpz_init(c_ascii);
+
+    int i = -1;
+    char c;
+    do
+    {
+        i += 1;
+        mpz_mod_ui(c_ascii, x, 256);
+        mpz_sub(x, x, c_ascii);
+        mpz_div_ui(x, x, 256);
+        c = (char)mpz_get_ui(c_ascii);
+        str[i] = c;
+    } while (str[i] != '\0');
+
+    mpz_clear(x);
+    mpz_clear(c_ascii);
+
+    return str;
 }

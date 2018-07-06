@@ -10,4 +10,6 @@ void key_gen(mpz_t n,
 
 void encode(mpz_t r, const char *str);
 
+char *decode(const mpz_t n);
+
 #endif
