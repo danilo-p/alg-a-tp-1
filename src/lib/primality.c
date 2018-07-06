@@ -69,7 +69,6 @@ int probably_prime(const mpz_t n,
     mpz_set(q, n1);
     while (mpz_cmp_ui(q, 0) != 0 && mpz_even_p(q))
     {
-        ;
         mpz_div_ui(q, q, 2);
         t += 1;
     }
@@ -88,10 +87,13 @@ int probably_prime(const mpz_t n,
         }
     }
 
+
 end:
+
     mpz_clear(base);
     mpz_clear(q);
     mpz_clear(n1);
+
     return inconclusive;
 }
 
@@ -112,6 +114,6 @@ void random_prime(mpz_t r,
 {
     do
     {
-        mpz_urandomb(r, randstate, b);
-    } while (mpz_cmp_ui(r, 2) < 0 || !probably_prime(r, 10, randstate));
+        mpz_urandomb(r, randstate, b)
+    } while (mpz_cmp_ui(r, 2) < 0 || !probably_prime(r, 10, randstate))
 }
