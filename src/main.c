@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "lib/arithmetics.h"
 #include "lib/primality.h"
@@ -21,29 +20,31 @@ int main()
 
     key_gen(n, e, d, randstate);
 
-    gmp_printf("n = %Zd e = %Zd d = %Zd\n", n, e, d);
-    
+    gmp_printf("\nPublic key: (n = %Zd, e = %Zd)\n", n, e);
+    gmp_printf("\nPrivate key: (n = %Zd, d = %Zd)\n", n, d);
+
     mpz_t M;
     mpz_init(M);
 
-    char str[] = "danilo pimentel de carvalho costa";
+    char str[] = "Danilo Pimentel de Carvalho Costa";
     encode(M, str);
 
-    gmp_printf("encode: M = %Zd\n", M);
+    gmp_printf("\nOriginal message: %s\n", str);
+    gmp_printf("\nEncoded message: %Zd\n", M);
 
     mpz_t C;
     mpz_init(C);
 
     encrypt(C, M, n, e);
 
-    gmp_printf("encrypt: C = %Zd\n", C);
+    gmp_printf("\nEncrypted message: %Zd\n", C);
 
     decrypt(M, C, n, d);
 
-    gmp_printf("decrypt: M = %Zd\n", M);
+    gmp_printf("\nDecrypted message: %Zd\n", M);
 
     char *decoded = decode(M);
-    printf("decode: %s\n", decoded);
+    gmp_printf("\nDecoded message: %s\n", decoded);
 
     free(decoded);
     mpz_clear(n);

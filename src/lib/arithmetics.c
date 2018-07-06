@@ -1,10 +1,12 @@
 #include <gmp.h>
 #include "arithmetics.h"
 
-void gcd_extended(mpz_t g, mpz_t x, mpz_t y,
-                  const mpz_t a, const mpz_t b)
+void gcd_extended(mpz_t g,
+                  mpz_t x,
+                  mpz_t y,
+                  const mpz_t a,
+                  const mpz_t b)
 {
-    // Init values
     mpz_t r;
     mpz_init(r);
     mpz_t q;
